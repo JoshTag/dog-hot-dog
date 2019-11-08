@@ -3,6 +3,7 @@ import React from 'react';
 import './Image.scss';
 
 class Image extends React.Component {
+  //hope this works
   render() {
     console.log(this.props.data)
     if (!this.props.data)  {
