@@ -1,0 +1,15 @@
+.form-container {
+
+  &__inputs {
+    width: 100px;
+    height: 50px;
+  }
+}
+
+#hotdog-input {
+  background-color: yellow;
+}
+
+#dog-input {
+  background-color: red;
+}

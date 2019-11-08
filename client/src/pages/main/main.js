@@ -1,9 +1,10 @@
 import React from 'react';
+import './main.scss';
+
+import Selectors from "../../components/Selectors"
 import Axios from 'axios';
 
 import Image from '../../components/Image/Image';
-
-import './Main.scss';
 
 require("dotenv").config()
 console.log(process.env.REACT_APP_GIPHY_API_KEY)
@@ -55,7 +56,12 @@ class Main extends React.Component{
 
   render() {
     return(
+      <>
+      <p>Main</p>
       <Image data={this.sendData()}/>
+      <Selectors />
+      </>
+      
     )
   }
 }
