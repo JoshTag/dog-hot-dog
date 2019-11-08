@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 
-import Image from '../../components/Image';
+import Image from '../../components/Image/Image';
 
 import './Main.scss';
 
