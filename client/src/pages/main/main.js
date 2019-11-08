@@ -1,11 +1,15 @@
 import React from 'react';
-
 import './main.scss';
+
+import Selectors from "../../components/Selectors"
 
 class Main extends React.Component{
   render() {
     return(
-      null
+      <>
+      <p>Main</p>
+      <Selectors />
+      </>
     )
   }
 }
