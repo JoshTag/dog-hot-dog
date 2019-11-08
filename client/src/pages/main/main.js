@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 import Image from '../../components/Image';
 
-import './Main.scss';
+import './main.scss';
 
 require("dotenv").config()
 console.log(process.env.REACT_APP_GIPHY_API_KEY)

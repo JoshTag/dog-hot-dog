@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from './pages/main/Main';
+import Main from './pages/main/main';
 import './App.css';
 
 
