@@ -4,7 +4,7 @@ import './main.scss';
 import Selectors from "../../components/Selectors"
 import Axios from 'axios';
 
-import Image from '../../components/Image';
+import Image from '../../components/Image/Image';
 
 require("dotenv").config()
 console.log(process.env.REACT_APP_GIPHY_API_KEY)
