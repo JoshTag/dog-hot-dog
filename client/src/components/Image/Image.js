@@ -14,7 +14,7 @@ class Image extends React.Component {
       <div className="image">
         <img className="image__gif" src={this.props.data.images.original.url} ></img>
       </div>
-      
+      // null
     )
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Selectors.scss";
 
-const Selectors = () => {
+const Selectors = (props) => {
   const [number, setNumber] = useState(0);
 
   let useSubmitDog = e => {
@@ -20,15 +20,15 @@ const Selectors = () => {
 
   const RandomOne = () => (
     <>
-      <input id="hotdog-input" className="form-container__inputs" type="submit" onClick={useSubmitHotDog} value="Hot Dog!" />
-      <input id="dog-input" className="form-container__inputs" type="submit" onClick={useSubmitDog} value="Dog!" />
+      <input id="hotdog-input" className="form-container__inputs" onClick={props.changeData} type="submit" value="Hot Dog!" />
+      <input id="dog-input" className="form-container__inputs" onClick={props.changeData} type="submit" value="Dog!" />
     </>
   );
 
   const RandomTwo = () => (
     <>
-      <input id="dog-input" className="form-container__inputs" type="submit" onClick={useSubmitDog} value="Dog!" />
-      <input id="hotdog-input"  className="form-container__inputs" type="submit" onClick={useSubmitHotDog} value="Hot Dog!" />
+      <input id="dog-input" className="form-container__inputs" onClick={props.changeData} type="submit" value="Dog!" />
+      <input id="hotdog-input"  className="form-container__inputs" onClick={props.changeData} type="submit" value="Hot Dog!" />
     </>
   );
 
