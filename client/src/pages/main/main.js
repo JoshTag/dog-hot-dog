@@ -4,22 +4,28 @@ import './main.scss';
 import Selectors from "../../components/Selectors"
 import Axios from 'axios';
 
-import Image from '../../components/Image';
+import Image from '../../components/Image/Image';
 
 require("dotenv").config()
 console.log(process.env.REACT_APP_GIPHY_API_KEY)
 
-class Main extends React.Component{
+class Main extends React.Component {
   state = {
-    dog: [],
-    hotDog: []
+    dog: null,
+    hotDog: null,
+    image: null
   }
 
   componentDidMount () {
     this.getHotDogData(process.env.REACT_APP_GIPHY_API_KEY)
     this.getDogData(process.env.REACT_APP_GIPHY_API_KEY)
-
   }
+
+  // componentDidUpdate (prevProps, prevState) {
+  //   if (this.state.image && this.state.image.id !== this.prevState.image.id){
+  //     this.sendData()
+  //   }
+  // }
 
   getDogData = (key) => {
     Axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${key}&q=dog`)
@@ -36,6 +42,7 @@ class Main extends React.Component{
       this.setState({
         hotDog: response.data.data
       })
+      this.sendData()
     })
   }
 
@@ -45,21 +52,26 @@ class Main extends React.Component{
 
   sendData = () => {
     let num = this.getRandomInt(2)
-    let i = this.getRandomInt(26)
+    let i = this.getRandomInt(25)
     if (num === 0) {
-      return this.state.dog[i]
+      this.setState({
+        image: this.state.dog[i]
+      })
     }
     else {
-      return this.state.hotDog[i]
+      this.setState({
+        image: this.state.hotDog[i]
+      })
     }
   }
 
   render() {
-    return(
+    console.log(this.state.image)
+    return (
       <>
-      <p>Main</p>
-      <Image data={this.sendData()}/>
-      <Selectors />
+        <p>Main</p>
+        <Image data={this.state.image}/>
+        <Selectors changeData={()=> this.sendData()}/>
       </>
       
     )

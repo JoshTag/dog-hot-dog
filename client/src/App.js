@@ -1,14 +1,16 @@
 import React from 'react';
+import Main from "./pages/main"
 
-import Main from './pages/main/main';
 import './App.css';
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 
 function App() {
   return (
-    <div className="App">
       <Main />
-    </div>
   );
 }
 
