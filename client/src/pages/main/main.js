@@ -6,6 +6,7 @@ import Axios from "axios";
 import Selectors from "../../components/Selectors";
 import Image from "../../components/Image/Image";
 import GameStats from "../../components/GameStats";
+import EndGame from "../../components/EndGame";
 
 require("dotenv").config();
 
@@ -20,7 +21,8 @@ class Main extends React.Component {
     count: 0,
     right: 0,
     wrong: 0,
-    finalScore: {}
+    finalScore: {},
+    modalIsOpen: false
   };
 
   componentDidMount() {
@@ -29,10 +31,26 @@ class Main extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.count >= 10) {
-      alert("game over")
+    if (this.state.count >= 10 && !this.state.modalIsOpen) {
+      this.openModal();
+      this.setState({
+        finalScore: { right: this.state.right, wrong: this.state.wrong },
+        count: 0,
+        right: 0,
+        wrong: 0
+      });
     }
   }
+
+  // Modal Functionality
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+    window.location.reload()
+  };
 
   getDogData = key => {
     Axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${key}&q=dog`).then(
@@ -80,25 +98,24 @@ class Main extends React.Component {
     e.preventDefault();
 
     if (this.state.answer === e.target.value) {
-      let count = this.state.right + 1
+      let count = this.state.right + 1;
       this.setState({
         right: count
       });
     } else {
-      let count = this.state.wrong + 1
+      let count = this.state.wrong + 1;
       this.setState({
         wrong: count
       });
     }
 
-    let counter = this.state.count + 1
+    let counter = this.state.count + 1;
     this.setState({
       count: counter
     });
   };
 
   render() {
-    console.log("Answer", this.state.answer);
     console.log(this.state.right, this.state.wrong, this.state.count);
 
     return (
@@ -107,6 +124,11 @@ class Main extends React.Component {
         <Image data={this.state.image} />
         <GameStats right={this.state.right} wrong={this.state.wrong} />
         <Selectors changeData={this.sendData} checkAnswer={this.checkAnswer} />
+        <EndGame
+          modalIsOpen={this.state.modalIsOpen}
+          closeModal={this.closeModal}
+          finalScore={this.state.finalScore}
+        />
       </>
     );
   }
