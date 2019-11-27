@@ -119,7 +119,7 @@ class Main extends React.Component {
     console.log(this.state.right, this.state.wrong, this.state.count);
 
     return (
-      <>
+      <div className="main">
         <h1>DAWG OR HAWT DAWG?!?!</h1>
         <Image data={this.state.image} />
         <GameStats right={this.state.right} wrong={this.state.wrong} />
@@ -129,7 +129,7 @@ class Main extends React.Component {
           closeModal={this.closeModal}
           finalScore={this.state.finalScore}
         />
-      </>
+      </div>
     );
   }
 }
