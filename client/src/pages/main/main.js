@@ -1,6 +1,7 @@
 import React from "react";
 import "./main.scss";
 import Axios from "axios";
+import loading from "../../assets/loading.gif";
 
 // Component Imports
 import Selectors from "../../components/Selectors";
@@ -22,13 +23,31 @@ class Main extends React.Component {
     right: 0,
     wrong: 0,
     finalScore: {},
-    modalIsOpen: false
+    modalIsOpen: false,
+    startTime: 5
   };
 
   componentDidMount() {
-    this.getHotDogData(apiKey);
-    this.getDogData(apiKey);
+    this.getHotDogData();
+    this.getDogData();
+
+    this.countDownTimer();
+    setTimeout(() => {
+      this.sendData()
+    }, 4000);
   }
+
+  startCountDown = () => {
+    if(this.state.startTime > 0 ) {
+      this.setState(prevState => ({
+        startTime: prevState.startTime - 1
+      }));
+    } else {
+      clearInterval(this.countDownTimer);
+    }
+  };
+
+  countDownTimer = () => setInterval(this.startCountDown, 1000);
 
   componentDidUpdate() {
     if (this.state.count >= 10 && !this.state.modalIsOpen) {
@@ -49,29 +68,61 @@ class Main extends React.Component {
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
-    window.location.reload()
+    window.location.reload();
   };
 
-  getDogData = key => {
-    Axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${key}&q=dog`).then(
-      response => {
-        this.setState({
-          dog: response.data.data
-        });
-        this.sendData();
-      }
-    );
-  };
+  getDogData = () => {
+    let i = this.getRandomInt(20);
+    let dogs = [];
 
-  getHotDogData = key => {
     Axios.get(
-      `https://api.giphy.com/v1/gifs/search?api_key=${key}&q=hotdog`
-    ).then(response => {
-      this.setState({
-        hotDog: response.data.data
+      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=dog&offset=${i}&limit=25`
+    )
+      .then(res => {
+        res.data.data.forEach(item => {
+          dogs.push(item.images.downsized_medium.url);
+        });
+      })
+      .then(() => {
+        this.setState({
+          dog: dogs
+        });
+      })
+      .then(() => {
+        this.state.dog.forEach(item => {
+          this.preloadImage(item);
+        });
+      })
+      .catch(err => {
+        alert(err);
       });
-      this.sendData();
-    });
+  };
+
+  getHotDogData = () => {
+    let i = this.getRandomInt(20);
+    let hotDogs = [];
+
+    Axios.get(
+      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=hot%20dog&offset=${i}&limit=25`
+    )
+      .then(res => {
+        res.data.data.forEach(item => {
+          hotDogs.push(item.images.downsized_medium.url);
+        });
+      })
+      .then(() => {
+        this.setState({
+          hotDog: hotDogs
+        });
+      })
+      .then(() => {
+        this.state.hotDog.forEach(item => {
+          this.preloadImage(item);
+        });
+      })
+      .catch(err => {
+        alert(err);
+      });
   };
 
   getRandomInt = max => {
@@ -81,6 +132,7 @@ class Main extends React.Component {
   sendData = () => {
     let num = this.getRandomInt(2);
     let i = this.getRandomInt(25);
+
     if (num === 0) {
       this.setState({
         image: this.state.dog[i],
@@ -115,20 +167,41 @@ class Main extends React.Component {
     });
   };
 
-  render() {
-    console.log(this.state.right, this.state.wrong, this.state.count);
+  preloadImage = url => {
+    let img = new Image();
+    img.src = url;
+  };
 
+  render() {
+    // console.log(this.state.right, this.state.wrong, this.state.count);
+    console.log(this.state.startTime);
     return (
       <div className="main">
         <h1>DAWG OR HAWT DAWG?!?!</h1>
-        <Image data={this.state.image} />
-        <GameStats right={this.state.right} wrong={this.state.wrong} />
-        <Selectors changeData={this.sendData} checkAnswer={this.checkAnswer} />
-        <EndGame
-          modalIsOpen={this.state.modalIsOpen}
-          closeModal={this.closeModal}
-          finalScore={this.state.finalScore}
-        />
+        {this.state.startTime === 0 ? (
+          <>
+            <Image data={this.state.image} />
+            <GameStats right={this.state.right} wrong={this.state.wrong} />
+            <Selectors
+              changeData={this.sendData}
+              checkAnswer={this.checkAnswer}
+            />
+            <EndGame
+              modalIsOpen={this.state.modalIsOpen}
+              closeModal={this.closeModal}
+              finalScore={this.state.finalScore}
+            />
+          </>
+        ) : (
+          <>
+            <p>Game Starting in {this.state.startTime}</p>
+            <img
+              className="loading-gif"
+              src={loading}
+              alt="cat spinning around loading gif"
+            />
+          </>
+        )}
       </div>
     );
   }
