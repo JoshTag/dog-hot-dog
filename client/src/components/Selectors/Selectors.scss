@@ -1,3 +1,5 @@
+@import "../../styles/Master";
+
 .form-container {
 
   &__inputs {
@@ -7,9 +9,11 @@
 }
 
 #hotdog-input {
-  background-color: yellow;
+  background-color: $site-colour-yellow;
+  color: $site-colour-red;
 }
 
 #dog-input {
-  background-color: red;
+  background-color: $site-colour-red;
+  color: $site-colour-yellow;
 }
