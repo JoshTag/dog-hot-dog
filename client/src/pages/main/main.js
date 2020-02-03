@@ -1,7 +1,7 @@
 import React from "react";
 import "./main.scss";
 import Axios from "axios";
-import loading from "../../assets/loading.gif";
+// import loading from "../../assets/loading.gif";
 
 // Component Imports
 import Selectors from "../../components/Selectors";
@@ -24,10 +24,18 @@ class Main extends React.Component {
     wrong: 0,
     finalScore: {},
     modalIsOpen: false,
-    startTime: 5
+    startTime: 5,
+    loadingGif: ""
   };
 
   componentDidMount() {
+    Axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=loading`)
+      .then(res => {
+        this.setState({
+          loadingGif: res.data.data.images.original.url
+        })
+      })
+
     this.getHotDogData();
     this.getDogData();
 
@@ -197,7 +205,7 @@ class Main extends React.Component {
             <p>Game Starting in {this.state.startTime}</p>
             <img
               className="loading-gif"
-              src={loading}
+              src={this.state.loadingGif}
               alt="cat spinning around loading gif"
             />
           </>

@@ -11,7 +11,7 @@
   &__title {
     text-align: center;
     color: $site-colour-yellow;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin: 50px 0;
 
     @include tablet {
@@ -30,78 +30,109 @@
       -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 4s both;
               animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 4s both;
     }
-
   }
 
-  &__img-container {
-    display: flex;
-    flex-flow: wrap;
-    width: 300px;
+  &__play-button {
+    margin-top: 50px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: $site-colour-yellow;
+    border: 2px solid $site-colour-yellow;
+    -webkit-box-shadow: 10px 10px 29px -13px rgba(0,0,0,0.6);
+    -moz-box-shadow: 10px 10px 29px -13px rgba(0,0,0,0.6);
+    box-shadow: 10px 10px 29px -13px rgba(0,0,0,0.6);
+    padding: 15px 40px;
+    border-radius: 5px;
+    transition: .3s;
+    opacity: 0;
+    animation: enterPlayBtn 2s ease-in-out 5s forwards;
+
+    @include tablet {
+      font-size: 1.5rem;
+    }
   }
 
-  &__imgs {
-    height: 150px;
-    width: 150px;
+  &__play-button:hover {
+    cursor: pointer;
+    color: $site-colour-red;
+    border: 2px solid $site-colour-red;
+    background: $site-colour-yellow;
+    transform: translateY(5px)
   }
 }
 
 .dog-img {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin-top: 50px;
+  position: relative;
   animation: dogEntrance 4s ease-in-out forwards;
+
+  @include tablet {
+    width: 200px;
+    height: 200px;
+  }
 }
 
-.hot-dog-img {
+.hot-dog {
+  width: 100px;
+  height: 100px;
+
+  @include tablet {
+    width: 200px;
+    height: 200px;
+  }
   &-one {
     position: absolute;
     bottom: -200px;
     left: 10%;
-    transform: scale(0.6);
     animation: hotDogOne 3.2s 3s ease-in infinite;
   }
+
   &-two {
     position: absolute;
     bottom: -200px;
     left: 50%;
-    transform: scale(0.7) rotate(90deg);
+    transform: rotate(90deg);
     animation: hotDogTwo 3.7s 4s ease-out infinite;
   }
+
   &-three {
     position: absolute;
     bottom: -200px;
     left: 26%;
-    animation: hotDogThree 1s 4.5s ease-in infinite;
+    animation: hotDogThree 1.2s 4.5s ease-in infinite;
   }
+
   &-four {
     position: absolute;
     bottom: -200px;
-    left: 70%;
-    transform: scale(1.2);
-    animation: hotDogFour 1.5s 3.5s ease-in infinite;
+    animation: hotDogFour 1.9s 3s linear infinite;
   }
+
   &-five {
     position: absolute;
     bottom: -200px;
     left: 90%;
     animation: hotDogFive 20s 2s linear infinite;
   }
+
   &-six {
     position: absolute;
     bottom: 50%;
     left: -100%;
-    animation: hotDogSix 3s 2.5s linear infinite;
+    animation: hotDogSix 3s 2.5s ease-in-out infinite;
   }
 }
 
 @keyframes dogEntrance {
   0% {
     opacity: 0;
-    transform: scale(0.5) rotate(-10deg);
+    transform: scale(0.5);
   }
   100% {
     opacity: 1;
-    transform: scale(1.5) rotate(-10deg);
+    transform: scale(1.5);
   }
 }
 
@@ -113,10 +144,11 @@
   }
   100% {
     bottom: 100vh;
-    left: 60%;
+    left: 30%;
     transform: rotate(180deg);
   }
 }
+
 @keyframes hotDogTwo {
   0% {
     bottom: -200px;
@@ -156,6 +188,7 @@
     transform: rotate(80deg);
   }
 }
+
 @keyframes hotDogThree {
   0% {
     bottom: -200px;
@@ -166,6 +199,7 @@
     left: 85%;
   }
 }
+
 @keyframes hotDogFour {
   0% {
     bottom: -200px;
@@ -174,10 +208,11 @@
   }
   100% {
     bottom: 100vh;
-    left: 10%;
+    left: -10%;
     transform: rotate(90deg);
   }
 }
+
 @keyframes hotDogFive {
   0% {
     bottom: -200px;
@@ -188,6 +223,7 @@
     left: 15%;
   }
 }
+
 @keyframes hotDogSix {
   0% {
     bottom: 50%;
@@ -211,5 +247,14 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes enterPlayBtn {
+  to {
+    opacity: 1;
+  }
+  from {
+    opacity: 0;
   }
 }
