@@ -1,0 +1,14 @@
+@import '../../styles/Master.scss';
+
+.scores {
+  display: flex;
+  font-size: 0.7rem;
+  justify-content: space-between;
+  font-weight: bolder;
+  border-bottom: solid 1px $highscore-yellow;
+  padding: 0 2px 2px 2px;
+  margin-bottom: 5px;
+
+  &__entry {
+  }
+}
