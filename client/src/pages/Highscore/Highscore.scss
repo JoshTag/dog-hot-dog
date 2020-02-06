@@ -16,18 +16,112 @@
     border-radius: 10px;
     box-shadow: 12px 11px 5px 0px rgba(0,0,0,0.44);
     width: 50vw;
-  }
 
+    @include tablet {
+      width: 40vw;
+    }
+
+    @include laptop {
+      width: 32vw;
+    }
+
+    @include desktop {
+      width: 35vw;
+      padding: 50px 100px;
+    }
+  }
+  
   &__title {
     color: $highscore-yellow;
     font-weight: 900;
+
+    @include tablet {
+      font-size: 2.5rem;
+    }
+
+    @include desktop {
+      font-size: 3rem;
+    }
     
   }
-
+  
   &__list {
     height: 20vh;
     overflow-y: scroll;
     margin-top: 20px;
     width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    
+    @include desktop {
+      height: 30vh;
+    }
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 10px;
+      border-radius: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);
+      background: black;
+    }
+    
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: linear-gradient(red,yellow);
+      outline: 1px solid slategrey;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: darkred;
+    }
+  }
+
+  &__button-container {
+    margin-top: 30px;
+  }
+
+  &__play-again {
+    background: linear-gradient(red 40%, yellow);
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 1rem;
+    color: $site-colour-yellow;
+    border: 2px solid $site-colour-yellow;
+    -webkit-box-shadow: 10px 10px 29px -13px rgba(0,0,0,0.6);
+    -moz-box-shadow: 10px 10px 29px -13px rgba(0,0,0,0.6);
+    box-shadow: 10px 10px 29px -13px rgba(0,0,0,0.6);
+    padding: 15px 40px;
+    border-radius: 5px;
+    transition: .3s;
+    opacity: 0;
+    animation: enterPlayBtn 1s ease-in-out 1s forwards;
+
+    @include tablet {
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $site-colour-red;
+      border: 2px solid $site-colour-red;
+      background: $site-colour-yellow;
+      transform: translateY(5px)
+    }
+  }
+}
+
+@keyframes enterPlayBtn {
+  to {
+    opacity: 1;
+  }
+  from {
+    opacity: 0;
   }
 }
