@@ -1,0 +1,38 @@
+// Media Queries
+
+// Tablet up
+@mixin tablet {
+  @media (min-width: 48rem) {
+    @content;
+  }
+}
+
+// Desktop small up
+@mixin laptop {
+  @media (min-width: 64rem) {
+    @content;
+  }
+}
+
+// Desktop large up
+@mixin desktop {
+  @media (min-width: 90rem) {
+    @content;
+  }
+}
+
+// Variables
+$site-colour-red: #ff0000;
+$site-colour-yellow: #ffff00;
+
+// Global
+* {
+  font-family: "comic sans ms";
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: linear-gradient($site-colour-red 50%,  $site-colour-yellow 100%);
+  height: 100vh;
+}

@@ -10,9 +10,8 @@ class Image extends React.Component {
     
     return (
       <div className="image">
-        <img className="image__gif" src={this.props.data.images.original.url} alt="Hot dog or dog"/>
+        <img className="image__gif" src={this.props.data} alt="Hot dog or dog"/>
       </div>
-      // null
     )
   }
 }

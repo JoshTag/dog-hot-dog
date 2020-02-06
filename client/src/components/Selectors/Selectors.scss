@@ -1,15 +1,19 @@
-.form-container {
+@import "../../styles/Master";
 
-  &__inputs {
-    width: 100px;
-    height: 50px;
-  }
-}
+// .form-container {
 
-#hotdog-input {
-  background-color: yellow;
-}
+//   &__inputs {
+//     width: 100px;
+//     height: 50px;
+//   }
+// }
 
-#dog-input {
-  background-color: red;
-}
+// #hotdog-input {
+//   background-color: $site-colour-yellow;
+//   color: $site-colour-red;
+// }
+
+// #dog-input {
+//   background-color: $site-colour-red;
+//   color: $site-colour-yellow;
+// }

@@ -1,8 +1,9 @@
 import React from 'react'
+import "./GameStats.scss"
 
 const GameStats = props => {
   return (
-    <div>
+    <div className="game-stat">
       <p>Right: {props.right}</p>
       <p>Wrong: {props.wrong}</p>
     </div>
