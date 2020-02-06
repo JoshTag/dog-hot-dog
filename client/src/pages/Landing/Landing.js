@@ -3,13 +3,9 @@ import { Link } from "react-router-dom";
 import "./Landing.scss";
 import dogSVG from "../../assets/dog.svg";
 import hotdogSVG from "../../assets/hot-dog.svg";
-import dogCostume from "../../assets/hot-dog-costume.svg";
 import doge from "../../assets/doge.svg";
-// import weiner from "../../assets/weiner-dog.svg"
 
 import Corgi from "../../components/Corgi"
-
-const apiKey = process.env.REACT_APP_GIPHY_API_KEY;
 
 export default function Landing() {
   return (
