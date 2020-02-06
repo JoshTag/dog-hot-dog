@@ -16,6 +16,12 @@ const customStyles = {
  
 class EndGame extends React.Component {
   render() {
+
+    const { finalTime } = this.props.finalScore
+    let centiseconds = ("0" + (Math.floor(finalTime / 10) % 100)).slice(-2);
+    let seconds = ("0" + (Math.floor(finalTime / 1000) % 60)).slice(-2);
+    let minutes = ("0" + (Math.floor(finalTime / 60000) % 60)).slice(-2);
+
     return (
       <div>
         <Modal
@@ -26,7 +32,8 @@ class EndGame extends React.Component {
         >
  
           <h2>Final Score</h2>
-          <div>Your Score Was {this.props.finalScore.right}/10</div>
+          <div>Your Score Was {this.props.finalScore.right}/20</div>
+          <p>Time: {minutes} : {seconds} : {centiseconds}</p>
           <button onClick={this.props.closeModal}>Play Again</button>
         </Modal>
       </div>
