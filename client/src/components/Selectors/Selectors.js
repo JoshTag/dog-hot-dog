@@ -21,6 +21,7 @@ const Button = styled.button`
   border: none;
   background-color: ${props => props.btnTheme === "red" ? "#ff0000" : "#ffff00"};
   color: ${props => (props.btnTheme === "red" ? "#ffff00" : "#ff0000")};
+  border: 2px solid ${props => (props.btnTheme === "red" ? "#ffff00" : "#ff0000")};
   :focus {outline:0;}
   @media(min-width: 48rem) {
     width: 175px;
