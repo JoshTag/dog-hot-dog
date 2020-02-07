@@ -1,7 +1,6 @@
 import React from "react";
 import "./main.scss";
 import Axios from "axios";
-// import loading from "../../assets/loading.gif";
 
 // Component Imports
 import Selectors from "../../components/Selectors";
@@ -235,6 +234,7 @@ class Main extends React.Component {
   };
 
   render() {
+
     const { timerTime } = this.state;
     let centiseconds = ("0" + (Math.floor(timerTime / 10) % 100)).slice(-2);
     let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
@@ -256,6 +256,8 @@ class Main extends React.Component {
               modalIsOpen={this.state.modalIsOpen}
               closeModal={this.closeModal}
               finalScore={this.state.finalScore}
+              newPost={this.props.newPost}
+              {...this.props}
             />
           </>
         ) : (

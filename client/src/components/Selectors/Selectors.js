@@ -65,7 +65,6 @@ const Selectors = props => {
     setBtnPosition(Math.random());
   };
 
-
   return (
     <BtnContainer>
       {btnPosition > 0.5 ? (
