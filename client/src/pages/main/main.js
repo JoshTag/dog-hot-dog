@@ -52,7 +52,6 @@ class Main extends React.Component {
   }
 
   
-  
   componentDidUpdate() {
     if (this.state.count >= 20 && !this.state.modalIsOpen) {
       this.openModal();
@@ -91,15 +90,20 @@ class Main extends React.Component {
 
   // Get Dog Data
   getDogData = () => {
-    let i = this.getRandomInt(20);
     let dogs = [];
+    let apiLink = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=dog`
 
-    Axios.get(
-      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=dog&offset=${i}&limit=40`
-    )
+    Axios.all([
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      ])
       .then(res => {
-        res.data.data.forEach(item => {
-          dogs.push(item.images.downsized_medium.url);
+        res.forEach(item => {
+          dogs.push(item.data.data.images.downsized_medium.url);
         });
       })
       .then(() => {
@@ -119,15 +123,20 @@ class Main extends React.Component {
 
   // Get Hot Dog Data
   getHotDogData = () => {
-    let i = this.getRandomInt(20);
     let hotDogs = [];
+    let apiLink = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=hot%20dog`
 
-    Axios.get(
-      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=hot%20dog&offset=${i}&limit=40`
-    )
+    Axios.all([
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+      ])
       .then(res => {
-        res.data.data.forEach(item => {
-          hotDogs.push(item.images.downsized_medium.url);
+        res.forEach(item => {
+          hotDogs.push(item.data.data.images.downsized_medium.url);
         });
       })
       .then(() => {
@@ -237,7 +246,7 @@ class Main extends React.Component {
         {this.state.startTime === 0 ? (
           <>
             <Image data={this.state.image} />
-            <p>Time: {minutes} : {seconds} : {centiseconds}</p>
+            <p className="main-game__timer">Time: <span>{minutes} : {seconds} : {centiseconds}</span></p>
             <GameStats right={this.state.right} wrong={this.state.wrong} />
             <Selectors
               changeData={this.sendData}
