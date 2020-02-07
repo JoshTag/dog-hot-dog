@@ -88,6 +88,8 @@
   }
 
   &__play-again {
+    display: inline-block;
+    text-decoration: none;
     background: linear-gradient(red 40%, yellow);
     margin-top: 10px;
     font-weight: 900;

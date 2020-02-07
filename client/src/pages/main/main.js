@@ -23,12 +23,16 @@ class Main extends React.Component {
     right: 0,
     wrong: 0,
     finalScore: {},
-    modalIsOpen: false,
+    timerOn: false,
+    timerStart: 0,
+    timerTime: 0,
+    modalIsOpen: true,
     startTime: 5,
     loadingGif: ""
   };
 
   componentDidMount() {
+    console.log(process.env.REACT_APP_GIPHY_API_KEY)
     Axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=loading`)
       .then(res => {
         this.setState({
@@ -43,7 +47,29 @@ class Main extends React.Component {
     setTimeout(() => {
       this.sendData()
     }, 3000);
+
+    setTimeout(() => {
+      this.startTimer()
+    }, 5000);
   }
+
+  
+  
+  componentDidUpdate() {
+    if (this.state.count >= 20 && !this.state.modalIsOpen) {
+      this.openModal();
+      this.setState({
+        finalScore: { right: this.state.right, wrong: this.state.wrong, finalTime: this.state.timerTime },
+        count: 0,
+        right: 0,
+        wrong: 0
+      });
+      this.stopTimer();
+    }
+  }
+  
+  // Count Down Timer
+  countDownTimer = () => setInterval(this.startCountDown, 1000);
 
   startCountDown = () => {
     if(this.state.startTime > 0 ) {
@@ -55,20 +81,6 @@ class Main extends React.Component {
     }
   };
 
-  countDownTimer = () => setInterval(this.startCountDown, 1000);
-
-  componentDidUpdate() {
-    if (this.state.count >= 10 && !this.state.modalIsOpen) {
-      this.openModal();
-      this.setState({
-        finalScore: { right: this.state.right, wrong: this.state.wrong },
-        count: 0,
-        right: 0,
-        wrong: 0
-      });
-    }
-  }
-
   // Modal Functionality
   openModal = () => {
     this.setState({ modalIsOpen: true });
@@ -79,12 +91,13 @@ class Main extends React.Component {
     window.location.reload();
   };
 
+  // Get Dog Data
   getDogData = () => {
     let i = this.getRandomInt(20);
     let dogs = [];
 
     Axios.get(
-      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=dog&offset=${i}&limit=25`
+      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=dog&offset=${i}&limit=40`
     )
       .then(res => {
         res.data.data.forEach(item => {
@@ -106,12 +119,13 @@ class Main extends React.Component {
       });
   };
 
+  // Get Hot Dog Data
   getHotDogData = () => {
     let i = this.getRandomInt(20);
     let hotDogs = [];
 
     Axios.get(
-      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=hot%20dog&offset=${i}&limit=25`
+      `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=hot%20dog&offset=${i}&limit=40`
     )
       .then(res => {
         res.data.data.forEach(item => {
@@ -133,10 +147,12 @@ class Main extends React.Component {
       });
   };
 
+  // Randomizes Number
   getRandomInt = max => {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
+  // Sends Dog or Hot Dog Gif Based on Random Number
   sendData = () => {
     let num = this.getRandomInt(2);
     let i = this.getRandomInt(25);
@@ -154,6 +170,7 @@ class Main extends React.Component {
     }
   };
 
+  // Checks the Answer of the Button Clicked
   checkAnswer = e => {
     e.preventDefault();
 
@@ -175,20 +192,56 @@ class Main extends React.Component {
     });
   };
 
+  // Preloads images?
   preloadImage = url => {
     let img = new Image();
     img.src = url;
   };
 
+  // Timer Starter
+  startTimer = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: Date.now() - this.state.timerTime
+    });
+    this.timer = setInterval(() => {
+      this.setState({
+        timerTime: Date.now() - this.state.timerStart
+      });
+    }, 10);
+  };
+
+  // Stops Timer
+  stopTimer = () => {
+    this.setState({ timerOn: false });
+    clearInterval(this.timer);
+  };
+
+  // Reset Timer
+  resetTimer = () => {
+    this.setState({
+      timerStart: 0,
+      timerTime: 0
+    });
+  };
+
   render() {
     // console.log(this.state.right, this.state.wrong, this.state.count);
-    console.log(this.state.startTime);
+
+    const { timerTime } = this.state;
+    let centiseconds = ("0" + (Math.floor(timerTime / 10) % 100)).slice(-2);
+    let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
+    let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
+
+    console.log(timerTime)
     return (
-      <div className="main">
-        <h1>DAWG OR HAWT DAWG?!?!</h1>
+      <div className="main-game">
+        <h1 className="main-game__title">DAWG OR HAWT DAWG?!?!</h1>
         {this.state.startTime === 0 ? (
           <>
             <Image data={this.state.image} />
+            <p>Time: {minutes} : {seconds} : {centiseconds}</p>
             <GameStats right={this.state.right} wrong={this.state.wrong} />
             <Selectors
               changeData={this.sendData}
@@ -202,12 +255,12 @@ class Main extends React.Component {
           </>
         ) : (
           <>
-            <p>Game Starting in {this.state.startTime}</p>
             <img
               className="loading-gif"
               src={this.state.loadingGif}
-              alt="cat spinning around loading gif"
+              alt="Loading GIF"
             />
+            <p className="countdown">Game Starting in {this.state.startTime}</p>
           </>
         )}
       </div>

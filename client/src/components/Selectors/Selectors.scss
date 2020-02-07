@@ -1,19 +1,2 @@
 @import "../../styles/Master";
 
-.form-container {
-
-  &__inputs {
-    width: 100px;
-    height: 50px;
-  }
-}
-
-#hotdog-input {
-  background-color: $site-colour-yellow;
-  color: $site-colour-red;
-}
-
-#dog-input {
-  background-color: $site-colour-red;
-  color: $site-colour-yellow;
-}
