@@ -17,20 +17,6 @@ export default function Landing() {
       </h1>
       <img className="dog-img" src={dogSVG} alt="Dog" />
       <Corgi />
-      {/* <div className="dog-container">
-        <img className="dog-img" src={dogSVG} alt="Dog" />
-        <div>
-          <img className="dog-costume" src={dogCostume} alt="Dog In Hot Dog Costume"/>
-          <img className="dog-costume" src={dogCostume} alt="Dog In Hot Dog Costume"/>
-          <img className="dog-costume" src={dogCostume} alt="Dog In Hot Dog Costume"/>
-          <img className="dog-costume" src={dogCostume} alt="Dog In Hot Dog Costume"/>
-          <img className="dog-costume" src={dogCostume} alt="Dog In Hot Dog Costume"/>
-        </div>
-      </div> */}
-      {/* <div className="corgi-container">
-        <img src={corgi} alt="corgi"/>
-        <img src={corgiButt} alt="corgi"/>
-      </div> */}
       <img className="doge" src={doge} alt="Doge Head" />
       <img className="hot-dog hot-dog-one" src={hotdogSVG} alt="Hot Dog" />
       <img className="hot-dog hot-dog-two" src={hotdogSVG} alt="Hot Dog" />

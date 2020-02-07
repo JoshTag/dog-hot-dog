@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Selectors.scss";
 import styled from "styled-components";
 import "../../styles/_Master.scss";
+// import dog from "../../assets/dog.svg"
 
 
 const BtnContainer = styled.div`
@@ -22,7 +23,16 @@ const Button = styled.button`
   background-color: ${props => props.btnTheme === "red" ? "#ff0000" : "#ffff00"};
   color: ${props => (props.btnTheme === "red" ? "#ffff00" : "#ff0000")};
   border: 2px solid ${props => (props.btnTheme === "red" ? "#ffff00" : "#ff0000")};
-  :focus {outline:0;}
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 29px -13px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 10px 10px 29px -13px rgba(0, 0, 0, 0.6);
+  box-shadow: 10px 10px 29px -13px rgba(0, 0, 0, 0.6);
+  :focus {
+    outline: 0;
+  }
+  :hover {
+    cursor: pointer;
+  }
   @media(min-width: 48rem) {
     width: 175px;
     height: 75px;
@@ -55,7 +65,6 @@ const Selectors = props => {
     setBtnPosition(Math.random());
   };
 
-  console.log(hotDotBtn, dogBtn)
 
   return (
     <BtnContainer>
