@@ -235,7 +235,6 @@ class Main extends React.Component {
   };
 
   render() {
-    // console.log(this.state.right, this.state.wrong, this.state.count);
     const { timerTime } = this.state;
     let centiseconds = ("0" + (Math.floor(timerTime / 10) % 100)).slice(-2);
     let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
