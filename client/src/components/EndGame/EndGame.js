@@ -17,16 +17,16 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)'
   }
 };
- 
+
 class EndGame extends React.Component {
 
   render() {
-    console.log(this.props)
+
     const { finalTime, right } = this.props.finalScore
     let centiseconds = ("0" + (Math.floor(finalTime / 10) % 100)).slice(-2);
     let seconds = ("0" + (Math.floor(finalTime / 1000) % 60)).slice(-2);
     let minutes = ("0" + (Math.floor(finalTime / 60000) % 60)).slice(-2);
-    console.log(this.props)
+
     return (
       <div>
         <Modal
@@ -43,10 +43,9 @@ class EndGame extends React.Component {
                 <p className="modal__time-title">Time: {`${minutes}:${seconds}:${centiseconds}`}</p>
               </div>
               <form className="modal__form" onSubmit={(event)=>this.props.newPost(event, finalTime, right, this.props)}>
-                <label className="modal__label" for="name">Enter your name: </label>
-                <input className="modal__input" type="text" name="firstName"></input>
+                <label className="modal__label" htmlFor="name">Enter your name: </label>
+                <input className="modal__input" type="text" name="firstName" maxlength="14" required></input>
                 <div className="modal__button-container">
-                {/* <Button className="modal__button" type="submit" path="/highscore" content="Submit"/> */}
                 <button type="submit" onClick={this.props.click} className="button">Submit</button>
                 <Button click={this.props.closeModal} path="/play" content="Play Again"/>
               </div>

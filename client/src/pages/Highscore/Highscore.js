@@ -5,8 +5,6 @@ import Scores from '../../components/Scores/Scores';
 import Corgi from '../../components/Corgi/Corgi';
 import './Highscore.scss'
 
-const array = [1,2,3,4,5,6,7,8,9,10]
-
 export default class Highscore extends React.Component {
   state = {
     class: null

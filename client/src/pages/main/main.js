@@ -1,7 +1,6 @@
 import React from "react";
 import "./main.scss";
 import Axios from "axios";
-// import loading from "../../assets/loading.gif";
 
 // Component Imports
 import Selectors from "../../components/Selectors";
@@ -32,7 +31,6 @@ class Main extends React.Component {
   };
 
   componentDidMount() {
-    console.log(process.env.REACT_APP_GIPHY_API_KEY)
     Axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=loading`)
       .then(res => {
         this.setState({
@@ -227,14 +225,12 @@ class Main extends React.Component {
   };
 
   render() {
-    // console.log(this.state.right, this.state.wrong, this.state.count);
 
     const { timerTime } = this.state;
     let centiseconds = ("0" + (Math.floor(timerTime / 10) % 100)).slice(-2);
     let seconds = ("0" + (Math.floor(timerTime / 1000) % 60)).slice(-2);
     let minutes = ("0" + (Math.floor(timerTime / 60000) % 60)).slice(-2);
 
-    console.log(timerTime)
     return (
       <div className="main-game">
         <h1 className="main-game__title">DAWG OR HAWT DAWG?!?!</h1>
