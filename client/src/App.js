@@ -31,20 +31,46 @@ class App extends React.Component {
   
   componentDidMount() {
     this.database.on('value', snap => {
+      const sortedData = Object.values(snap.val()).sort((a, b) => {
+        return a["score"] - b["score"] || b["time"] - a["time"];
+      });
       this.setState({
-        highscore: snap.val()
+        highscore: sortedData.reverse()
       })
     })
   }
 
+  newPost = (event, time, score, props) => {
+    event.preventDefault()
+    const name = event.target.firstName.value
+
+    // Get a key for a new Post.
+    var newPostKey = firebase.database().ref().push().key;
+
+     // A post entry.
+    var postData = {
+      id: newPostKey,
+      name: name,
+      score: score,
+      time: time
+    };
+  
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    var updates = {};
+    updates['/' + newPostKey] = postData;
+    // updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+  
+    props.history.push('/highscore')
+    return firebase.database().ref().update(updates);
+
+  }
+
   render () {
-    console.log(this.state.highscore)
-    console.log(process.env.REACT_APP_API_KEY)
     return (
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Landing} />
-          <Route path="/play" component={Main} />
+          <Route path="/play" render={(props) => <Main {...props} newPost={this.newPost}/>} />
           <Route path="/highscore" render={(props) => <Highscore {...props} highscore={this.state.highscore}/>} />
           <Route path="" component={ErrorPage} />
         </Switch>

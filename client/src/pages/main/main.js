@@ -26,7 +26,7 @@ class Main extends React.Component {
     timerOn: false,
     timerStart: 0,
     timerTime: 0,
-    modalIsOpen: true,
+    modalIsOpen: false,
     startTime: 5,
     loadingGif: ""
   };
@@ -251,6 +251,8 @@ class Main extends React.Component {
               modalIsOpen={this.state.modalIsOpen}
               closeModal={this.closeModal}
               finalScore={this.state.finalScore}
+              newPost={this.props.newPost}
+              {...this.props}
             />
           </>
         ) : (

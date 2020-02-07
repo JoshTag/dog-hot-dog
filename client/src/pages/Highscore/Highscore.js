@@ -22,10 +22,7 @@ export default class Highscore extends React.Component {
   render() {
     
     const {highscore} = this.props
-    // if (this.props.highscore) {
-    //   console.log(this.props.highscore)
-    // }
-    // console.log(Object.values(this.props.highscore))
+
     return (
       <section className="highscore">
         <div className="highscore__container animated bounceInDown">
@@ -33,9 +30,8 @@ export default class Highscore extends React.Component {
           <div className="highscore__list">
             {
               highscore ? 
-              Object.keys(highscore).map(item => {
-                console.log(highscore[item])
-                return <Scores item={highscore[item]} key={item}/>
+              highscore.map(item => {
+                return <Scores item={item} key={item.name + item.time}/>
               })
               :null
             }

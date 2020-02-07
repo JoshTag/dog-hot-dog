@@ -19,13 +19,14 @@ const customStyles = {
 };
  
 class EndGame extends React.Component {
-  render() {
 
-    const { finalTime } = this.props.finalScore
+  render() {
+    console.log(this.props)
+    const { finalTime, right } = this.props.finalScore
     let centiseconds = ("0" + (Math.floor(finalTime / 10) % 100)).slice(-2);
     let seconds = ("0" + (Math.floor(finalTime / 1000) % 60)).slice(-2);
     let minutes = ("0" + (Math.floor(finalTime / 60000) % 60)).slice(-2);
-
+    console.log(this.props)
     return (
       <div>
         <Modal
@@ -38,14 +39,15 @@ class EndGame extends React.Component {
             <h1 className="modal__title animated bounceInLeft">Final Score</h1>
             <div className="modal__container">
               <div className="modal__score-container">
-                <p className="modal__score">Score: 20/20</p>
-                <p className="modal__time-title">Time: 00:22:33</p>
+              <p className="modal__score">Score: {right}/20</p>
+                <p className="modal__time-title">Time: {`${minutes}:${seconds}:${centiseconds}`}</p>
               </div>
-              <form className="modal__form"method="post">
+              <form className="modal__form" onSubmit={(event)=>this.props.newPost(event, finalTime, right, this.props)}>
                 <label className="modal__label" for="name">Enter your name: </label>
                 <input className="modal__input" type="text" name="firstName"></input>
                 <div className="modal__button-container">
-                <Button className="modal__button" type="submit" path="/highscore" content="Submit"/>
+                {/* <Button className="modal__button" type="submit" path="/highscore" content="Submit"/> */}
+                <button type="submit" onClick={this.props.click} className="button">Submit</button>
                 <Button click={this.props.closeModal} path="/play" content="Play Again"/>
               </div>
             </form>
