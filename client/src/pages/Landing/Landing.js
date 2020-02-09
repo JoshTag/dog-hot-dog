@@ -24,13 +24,17 @@ export default function Landing() {
       <img className="hot-dog hot-dog-four" src={hotdogSVG} alt="Hot Dog" />
       <img className="hot-dog hot-dog-five" src={hotdogSVG} alt="Hot Dog" />
       <img className="hot-dog hot-dog-six" src={hotdogSVG} alt="Hot Dog" />
+      <img className="hot-dog hot-dog-seven" src={hotdogSVG} alt="Hot Dog" />
       <Link className="landing__play-button" to="/play">
         PLAY!
       </Link>
-      {/* <Link className="landing__leaderboard-button" to="/play">
-        <img src={weiner} alt="weiner dog outline"/>
-        <p>Leader Board</p>
-      </Link> */}
+      <Link className="landing__highscore-button" to="/highscore">
+        Highscores
+      </Link>
+      <div className="tooltip">
+        How to play?
+        <span className="tooltip--hover">Click on the "Dawg" or "Hawt Dawg" Buttons to choose if the current gif is a dog or hot dog</span>
+      </div>
     </div>
   );
 }

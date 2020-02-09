@@ -1,10 +1,10 @@
 import React from "react";
-import Main from "../pages/main/main";
-import Landing from "../pages/Landing/Landing";
-import Highscore from "../pages/Highscore/Highscore";
-import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Main from "./pages/main/main";
+import Landing from "./pages/Landing/Landing";
+import Highscore from "./pages/Highscore/Highscore";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import firebase from "../firebase"
+import firebase from "./firebase"
 
 require("dotenv").config();
 
@@ -45,7 +45,6 @@ class App extends React.Component {
     // Write the new post's data simultaneously in the posts list and the user's post list.
     var updates = {};
     updates['/' + newPostKey] = postData;
-    // updates['/user-posts/' + uid + '/' + newPostKey] = postData;
   
     props.history.push('/highscore')
     return firebase.database().ref().update(updates);

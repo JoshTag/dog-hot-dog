@@ -1,6 +1,7 @@
 import React from "react";
 import "./main.scss";
 import Axios from "axios";
+import {Link} from "react-router-dom"
 
 // Component Imports
 import Selectors from "../../components/Selectors";
@@ -250,6 +251,10 @@ class Main extends React.Component {
     });
   };
 
+  refresh = () => {
+    window.location.reload();
+  }
+
 
   render() {
 
@@ -270,6 +275,7 @@ class Main extends React.Component {
               changeData={this.sendData}
               checkAnswer={this.checkAnswer}
             />
+            <button className="refresh" onClick={this.refresh}>Refresh</button>
             <EndGame
               modalIsOpen={this.state.modalIsOpen}
               closeModal={this.closeModal}
@@ -288,6 +294,8 @@ class Main extends React.Component {
             <p className="countdown">Game Starting in {this.state.startTime}</p>
           </>
         )}
+        <Link className="links" to="/highscore">Highscores</Link>
+        <Link className="links" to="/">Home</Link>
       </div>
     );
   }

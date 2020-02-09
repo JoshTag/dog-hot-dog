@@ -42,3 +42,41 @@
   margin-top: 20px;
   font-size: 1.5rem;
 }
+
+.refresh {
+  color: $site-colour-red;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.links {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: $site-colour-red;
+  position: absolute;
+  left: 2rem;
+
+  &:nth-of-type(1) {
+    bottom: 2rem;
+  }
+
+  &:nth-of-type(2) {
+    bottom: 4rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

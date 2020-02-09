@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 import Scores from '../../components/Scores/Scores';
 import Corgi from '../../components/Corgi/Corgi';
+import costume from "../../assets/hot-dog-costume.svg";
 import './Highscore.scss'
 
 export default class Highscore extends React.Component {
@@ -37,9 +38,24 @@ export default class Highscore extends React.Component {
         </div>
         <div className="highscore__button-container">
           <Link to="/play" className="highscore__play-again">Play Again</Link>
-          {/* <button className="highscore__play-again">Play Again</button> */}
         </div>
         <Corgi/>
+        <Link className="highscore-link" to="/">Home</Link>
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
+        <img className="flying-dog" src={costume} alt="dog in hot dog costume" />
       </section>
     )
   }
