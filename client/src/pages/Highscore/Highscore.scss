@@ -146,7 +146,12 @@
 .flying-dog {
   position: absolute;
   z-index: -1;
-  left: -30vw;
+  left: -60vw;
+  width: 100px;
+
+  @include tablet {
+    width: 200px;
+  }
 
   &:nth-last-of-type(1) {
     top: 10vh;
