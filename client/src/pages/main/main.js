@@ -38,17 +38,22 @@ class Main extends React.Component {
         })
       })
 
-    this.getHotDogData();
-    this.getDogData();
+    Promise.all([this.getDogData(), this.getHotDogData()])
+      .then(() => {
+        this.sendData();
+      })
+      .then(() => {
+        setInterval(() => {
+          if(this.state.startTime === 0 && !this.state.timerOn){
+              this.startTimer();
+            }
+          }, 1);
+      })
+      .catch(() => {
+        alert("Oops! something went wrong...")
+      })
 
     this.countDownTimer();
-    setTimeout(() => {
-      this.sendData()
-    }, 3000);
-
-    setTimeout(() => {
-      this.startTimer()
-    }, 5000);
   }
 
   
@@ -92,33 +97,36 @@ class Main extends React.Component {
   getDogData = () => {
     let dogs = [];
     let apiLink = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=dog`
-
-    Axios.all([
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      ])
-      .then(res => {
-        res.forEach(item => {
-          dogs.push(item.data.data.images.downsized_medium.url);
+    return new Promise((res, rej) => {
+      Axios.all([
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        ])
+        .then(res => {
+          res.forEach(item => {
+            dogs.push(item.data.data.images.downsized_medium.url);
+          });
+        })
+        .then(() => {
+          this.setState({
+            dog: dogs
+          });
+        })
+        .then(() => {
+          this.state.dog.forEach(item => {
+            this.preloadImage(item);
+            res();
+          });
+        })
+        .catch(err => {
+          alert(err);
+          rej();
         });
-      })
-      .then(() => {
-        this.setState({
-          dog: dogs
-        });
-      })
-      .then(() => {
-        this.state.dog.forEach(item => {
-          this.preloadImage(item);
-        });
-      })
-      .catch(err => {
-        alert(err);
-      });
+    })
   };
 
   // Get Hot Dog Data
@@ -126,32 +134,36 @@ class Main extends React.Component {
     let hotDogs = [];
     let apiLink = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=hot%20dog`
 
-    Axios.all([
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-      ])
-      .then(res => {
-        res.forEach(item => {
-          hotDogs.push(item.data.data.images.downsized_medium.url);
+    return new Promise((res, rej) => {
+      Axios.all([
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        ])
+        .then(res => {
+          res.forEach(item => {
+            hotDogs.push(item.data.data.images.downsized_medium.url);
+          });
+        })
+        .then(() => {
+          this.setState({
+            hotDog: hotDogs
+          });
+        })
+        .then(() => {
+          this.state.hotDog.forEach(item => {
+            this.preloadImage(item);
+            res();
+          });
+        })
+        .catch(err => {
+          alert(err);
+          rej();
         });
-      })
-      .then(() => {
-        this.setState({
-          hotDog: hotDogs
-        });
-      })
-      .then(() => {
-        this.state.hotDog.forEach(item => {
-          this.preloadImage(item);
-        });
-      })
-      .catch(err => {
-        alert(err);
-      });
+    })
   };
 
   // Randomizes Number
@@ -164,17 +176,22 @@ class Main extends React.Component {
     let num = this.getRandomInt(2);
     let i = this.getRandomInt(25);
 
-    if (num === 0) {
-      this.setState({
-        image: this.state.dog[i],
-        answer: "Dog"
-      });
-    } else {
-      this.setState({
-        image: this.state.hotDog[i],
-        answer: "Hot Dog"
-      });
-    }
+    return new Promise((res, rej) => {
+      if (num === 0) {
+        this.setState({
+          image: this.state.dog[i],
+          answer: "Dog"
+        });
+        res();
+      } else {
+        this.setState({
+          image: this.state.hotDog[i],
+          answer: "Hot Dog"
+        });
+        res();
+      }
+      rej();
+    })
   };
 
   // Checks the Answer of the Button Clicked
@@ -232,6 +249,7 @@ class Main extends React.Component {
       timerTime: 0
     });
   };
+
 
   render() {
 

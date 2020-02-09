@@ -5,7 +5,7 @@ import './Image.scss';
 class Image extends React.Component {
   render() {
     if (!this.props.data)  {
-      return <p className="image__gif">Loading...</p>
+      return <p className="image__loading">Loading...</p>
     }
     
     return (

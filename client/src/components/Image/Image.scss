@@ -3,6 +3,17 @@
 .image {
   display: flex;
   justify-content: center;
+
+  &__loading {
+    color: $site-colour-yellow;
+    width: 300px;
+    height: 300px;
+
+    @include tablet {
+      width: 400px;
+      height: 400px;
+    }
+  }
   
   &__gif {
     height: 300px;

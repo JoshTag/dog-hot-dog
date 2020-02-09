@@ -44,7 +44,7 @@ class EndGame extends React.Component {
               </div>
               <form className="modal__form" onSubmit={(event)=>this.props.newPost(event, finalTime, right, this.props)}>
                 <label className="modal__label" htmlFor="name">Enter your name: </label>
-                <input className="modal__input" type="text" name="firstName" maxlength="14" required></input>
+                <input className="modal__input" type="text" name="firstName" maxLength="14" placecholder="Enter Name..." required></input>
                 <div className="modal__button-container">
                 <button type="submit" onClick={this.props.click} className="button">Submit</button>
                 <Button click={this.props.closeModal} path="/play" content="Play Again"/>

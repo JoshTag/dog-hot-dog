@@ -1,14 +1,14 @@
 import React from "react";
-import Main from "./pages/main";
-import Landing from "./pages/Landing";
-import Highscore from "./pages/Highscore";
-import ErrorPage from "./pages/ErrorPage";
+import Main from "../pages/main/main";
+import Landing from "../pages/Landing/Landing";
+import Highscore from "../pages/Highscore/Highscore";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "./App.css";
+import firebase from "../firebase"
 
-import * as firebase from 'firebase';
 require("dotenv").config();
 
+const database = firebase.database().ref()
 
 class App extends React.Component {
 
@@ -16,16 +16,8 @@ class App extends React.Component {
     highscore: null
   }
 
-  app = firebase.initializeApp({
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-  })
-  
-  database = this.app.database().ref()
-  
   componentDidMount() {
-    this.database.on('value', snap => {
+    database.on('value', snap => {
       const sortedData = Object.values(snap.val()).sort((a, b) => {
         return a["score"] - b["score"] || b["time"] - a["time"];
       });

@@ -21,6 +21,14 @@
   }
 }
 
+//Font Face
+// @font-face {
+//   font-family: 'Patrick Hand', cursive;
+//   src: url("./../assets/fonts/PatrickHand-Regular.ttf");
+// }
+
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap');
+
 // Variables
 $site-colour-red: #ff0000;
 $site-colour-yellow: #ffff00;
@@ -28,7 +36,7 @@ $highscore-yellow: rgb(238,219,126);
 
 // Global
 * {
-  font-family: "comic sans ms";
+  font-family: 'Patrick Hand';
   margin: 0;
   padding: 0;
 }
