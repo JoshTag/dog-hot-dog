@@ -103,13 +103,14 @@ class Main extends React.Component {
   getDogData = () => {
     let dogs = [];
     let apiLink = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=dog`
+    let getArr = []
+
+    for (let i = 0 ; i < 20 ; i++ ) {
+      getArr.push(Axios.get(apiLink + `&hash=${parseInt(Math.random() * 999999)}`))
+    }
+
     return new Promise((res, rej) => {
-      Axios.all([
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink)
-        ])
+      Axios.all(getArr)
         .then(res => {
           res.forEach(item => {
             dogs.push(item.data.data.images.downsized_medium.url);
@@ -138,13 +139,14 @@ class Main extends React.Component {
     let hotDogs = [];
     let apiLink = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=hot%20dog`
 
+    let getArr = []
+
+    for (let i = 0 ; i < 20 ; i++ ) {
+      getArr.push(Axios.get(apiLink + `&hash=${parseInt(Math.random() * 999999)}`))
+    }
+
     return new Promise((res, rej) => {
-      Axios.all([
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink)
-        ])
+      Axios.all(getArr)
         .then(res => {
           res.forEach(item => {
             hotDogs.push(item.data.data.images.downsized_medium.url);
