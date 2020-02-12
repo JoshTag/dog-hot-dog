@@ -20,6 +20,8 @@
     color: $site-colour-yellow;
     margin-top: 10px;
     font-size: 1rem;
+    height: 30px;
+    overflow: hidden;
 
     @include tablet {
       font-size: 1.25rem;
