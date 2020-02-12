@@ -80,15 +80,13 @@ class Main extends React.Component {
   };
 
   loadGame = () => {
-    return new Promise(res => {
-      this.countDownTimer();
-      this.setState({
-        loaded: true
-      })
-      setTimeout(() => {
-        this.startTimer();
-      }, 3000);
+    this.countDownTimer();
+    this.setState({
+      loaded: true
     })
+    setTimeout(() => {
+      this.startTimer();
+    }, 3000);
   }
 
   // Modal Functionality
