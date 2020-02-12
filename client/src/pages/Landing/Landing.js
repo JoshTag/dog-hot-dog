@@ -35,6 +35,9 @@ export default function Landing() {
         How to play?
         <span className="tooltip--hover">Click on the "Dawg" or "Hawt Dawg" Buttons to choose if the current gif is a dog or hot dog</span>
       </div>
+      <div className="copyright">
+        &copy; 2020 <a href="https://www.joshtag.com">Joshua Taguicana</a> & <a href="https://www.royleejr.com">Roy Lee Jr.</a>
+      </div>
     </div>
   );
 }

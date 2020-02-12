@@ -381,3 +381,22 @@
     right: -5rem;
   }
 }
+
+.copyright {
+  color: $site-colour-red;
+  position: absolute;
+  bottom: .5rem;
+
+  @include tablet {
+    bottom: 1rem;
+  }
+
+  & > a {
+    text-decoration: underline;
+    color: $site-colour-red;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
