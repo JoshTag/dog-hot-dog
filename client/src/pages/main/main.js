@@ -27,8 +27,9 @@ class Main extends React.Component {
     timerStart: 0,
     timerTime: 0,
     modalIsOpen: false,
-    startTime: 5,
-    loadingGif: ""
+    startTime: 3,
+    loadingGif: "",
+    loaded: false
   };
 
   componentDidMount() {
@@ -44,28 +45,22 @@ class Main extends React.Component {
         this.sendData();
       })
       .then(() => {
-        setInterval(() => {
-          if(this.state.startTime === 0 && !this.state.timerOn){
-              this.startTimer();
-            }
-          }, 1);
+        this.loadGame();
       })
       .catch(() => {
         alert("Oops! something went wrong...")
       })
-
-    this.countDownTimer();
   }
 
-  
   componentDidUpdate() {
     if (this.state.count >= 20 && !this.state.modalIsOpen) {
       this.openModal();
       this.setState({
-        finalScore: { right: this.state.right, wrong: this.state.wrong, finalTime: this.state.timerTime },
-        count: 0,
-        right: 0,
-        wrong: 0
+        finalScore: { 
+          right: this.state.right,
+          wrong: this.state.wrong,
+          finalTime: this.state.timerTime 
+        }
       });
       this.stopTimer();
     }
@@ -83,6 +78,18 @@ class Main extends React.Component {
       clearInterval(this.countDownTimer);
     }
   };
+
+  loadGame = () => {
+    return new Promise(res => {
+      this.countDownTimer();
+      this.setState({
+        loaded: true
+      })
+      setTimeout(() => {
+        this.startTimer();
+      }, 3000);
+    })
+  }
 
   // Modal Functionality
   openModal = () => {
@@ -103,9 +110,7 @@ class Main extends React.Component {
         Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
         Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
         Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink)
         ])
         .then(res => {
           res.forEach(item => {
@@ -140,9 +145,7 @@ class Main extends React.Component {
         Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
         Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
         Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
-        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink),
+        Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink), Axios.get(apiLink)
         ])
         .then(res => {
           res.forEach(item => {
@@ -169,26 +172,29 @@ class Main extends React.Component {
 
   // Randomizes Number
   getRandomInt = max => {
-    return Math.floor(Math.random() * Math.floor(max));
+    return Math.floor(Math.random() * max);
   };
 
   // Sends Dog or Hot Dog Gif Based on Random Number
   sendData = () => {
     let num = this.getRandomInt(2);
-    let i = this.getRandomInt(25);
+    let dogIndex = this.getRandomInt(this.state.dog.length - 1);
+    let hotDogIndex = this.getRandomInt(this.state.hotDog.length - 1);
 
     return new Promise((res, rej) => {
       if (num === 0) {
         this.setState({
-          image: this.state.dog[i],
-          answer: "Dog"
+          image: this.state.dog[dogIndex],
+          answer: "Dog",
         });
+        this.state.dog.splice(this.state.dog.indexOf(this.state.dog[this.state.count]), 1)
         res();
       } else {
         this.setState({
-          image: this.state.hotDog[i],
-          answer: "Hot Dog"
+          image: this.state.hotDog[hotDogIndex],
+          answer: "Hot Dog",
         });
+        this.state.hotDog.splice(this.state.hotDog.indexOf(this.state.hotDog[this.state.count]), 1)
         res();
       }
       rej();
@@ -291,7 +297,11 @@ class Main extends React.Component {
               src={this.state.loadingGif}
               alt="Loading GIF"
             />
-            <p className="countdown">Game Starting in {this.state.startTime}</p>
+            {this.state.loaded ? 
+              <p className="loading-message">Game Starting in {this.state.startTime}</p>
+              :
+              <p className="loading-message">Loading Game Gifs</p>
+            }
           </>
         )}
         <Link className="links" to="/highscore">Highscores</Link>

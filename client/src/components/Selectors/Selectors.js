@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Selectors.scss";
 import styled from "styled-components";
 import "../../styles/_Master.scss";
-// import dog from "../../assets/dog.svg"
-
 
 const BtnContainer = styled.div`
   display: flex;
@@ -50,6 +48,9 @@ const Selectors = props => {
   }, []);
 
   const handleClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     props.changeData();
     props.checkAnswer(e);
     switchBtn();

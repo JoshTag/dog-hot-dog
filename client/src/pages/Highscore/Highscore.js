@@ -30,7 +30,7 @@ export default class Highscore extends React.Component {
             {
               highscore ? 
               highscore.map(item => {
-                return <Scores item={item} key={item.name + item.time}/>
+                return <Scores item={item} key={item.id}/>
               })
               :null
             }
