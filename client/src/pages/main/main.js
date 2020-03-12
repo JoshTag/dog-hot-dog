@@ -31,6 +31,7 @@ class Main extends React.Component {
     loadingGif: "",
     loaded: false
   };
+  _isMounted = false;
 
   componentDidMount() {
     Axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=loading`)
@@ -64,6 +65,11 @@ class Main extends React.Component {
       });
       this.stopTimer();
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.stopTimer();
   }
   
   // Count Down Timer
@@ -113,7 +119,7 @@ class Main extends React.Component {
       Axios.all(getArr)
         .then(res => {
           res.forEach(item => {
-            dogs.push(item.data.data.images.downsized_medium.url);
+            dogs.push(item.data.data.images.original.url);
           });
         })
         .then(() => {
@@ -149,7 +155,7 @@ class Main extends React.Component {
       Axios.all(getArr)
         .then(res => {
           res.forEach(item => {
-            hotDogs.push(item.data.data.images.downsized_medium.url);
+            hotDogs.push(item.data.data.images.original.url);
           });
         })
         .then(() => {
